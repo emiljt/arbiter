@@ -1,0 +1,11 @@
+{
+    "id": "arbiter",
+    "name": "Arbiter",
+    "version": "0.1.0",
+    "minAppVersion": "0.15.0",
+    "description": "A productivity plugin",
+    "author": "emiljt",
+    "authorUrl": "https://github.com/emiljt",
+    "fundingUrl": "https://github.com/emiljt",
+    "isDesktopOnly": false
+}

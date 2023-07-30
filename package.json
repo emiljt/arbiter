@@ -1,0 +1,34 @@
+{
+  "name": "arbiter",
+  "version": "0.1.0",
+  "description": "A productivity plugin for Obsidian.md",
+  "main": "main.js",
+  "scripts": {
+    "build": "npm run build:assets && npm run build:tsc",
+    "build:assets": "rsync -rv --delete ./manifest.json ./dist",
+    "build:tsc": "npx tsc",
+    "lint": "npx prettier --write ./src",
+    "lint:check": "npx prettier --check ./src",
+    "sync": "rsync -rv --delete --exclude=.hotreload ./dist/ $OBSIDIAN_TEST_PLUGIN",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/emiljt/arbiter.git"
+  },
+  "author": "Joshua Terrasas <joshua@terrasas.family>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/emiljt/arbiter/issues"
+  },
+  "homepage": "https://github.com/emiljt/arbiter#readme",
+  "dependencies": {
+    "obsidian": "^1.3.5"
+  },
+  "devDependencies": {
+    "@tsconfig/node-lts": "^18.12.3",
+    "@tsconfig/strictest": "^2.0.1",
+    "prettier": "^3.0.0",
+    "typescript": "^5.1.6"
+  }
+}
