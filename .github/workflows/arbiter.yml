@@ -1,4 +1,4 @@
-name: HUD
+name: Arbiter
 on:
   pull_request:
     branches:
