@@ -1,6 +1,11 @@
 name: HUD
-on: [pull_request, push]
-  branches: master
+on:
+  pull_request:
+    branches:
+      - master
+  push:
+    branches:
+      - master
 defaults:
   run:
     working-directory: ./airdrome_hud
