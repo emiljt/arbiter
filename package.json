@@ -4,8 +4,8 @@
   "description": "A productivity plugin for Obsidian.md",
   "main": "main.js",
   "scripts": {
-    "build": "npm run build:assets && npm run build:tsc",
-    "build:assets": "rsync -rv --delete ./manifest.json ./dist",
+    "build": "npm run build:tsc && npm run build:esbuild",
+    "build:esbuild": "node esbuild.config.mjs",
     "build:tsc": "npx tsc",
     "lint": "npx prettier --write ./src",
     "lint:check": "npx prettier --check ./src",
@@ -28,7 +28,11 @@
   "devDependencies": {
     "@tsconfig/node-lts": "^18.12.3",
     "@tsconfig/strictest": "^2.0.1",
+    "esbuild": "^0.18.17",
+    "esbuild-plugin-copy": "^2.1.1",
+    "esbuild-svelte": "^0.7.4",
     "prettier": "^3.0.0",
+    "svelte-preprocess": "^5.0.4",
     "typescript": "^5.1.6"
   }
 }
