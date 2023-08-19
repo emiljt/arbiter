@@ -1,9 +1,15 @@
 <script lang="ts">
-  export let variable: number;
+  import { tasks } from './store.js';
+
+  let totalTasks: number;
+
+  tasks.subscribe((value) => {
+    totalTasks = value.length;
+  });
 </script>
 
 <div class="number">
-  <span>My number is {variable}!</span>
+  <span>My number is {totalTasks}!</span>
 </div>
 
 <style>
