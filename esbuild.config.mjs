@@ -1,17 +1,25 @@
-import { build } from 'esbuild';
-import { copy } from 'esbuild-plugin-copy';
+import builtins from "builtin-modules";
+import esbuild from 'esbuild';
 import esbuildSvelte from 'esbuild-svelte';
 import sveltePreprocess from 'svelte-preprocess';
+import { copy } from 'esbuild-plugin-copy';
 
-await build({
-    platform: 'node',
-    packages: 'external',
+await esbuild.build({
+    platform: 'browser',
+    format: 'cjs',
     target: 'es6',
     bundle: true,
+    treeShaking: true,
     minify: true,
     sourcemap: true,
     outdir: './dist',
     entryPoints: ['./src/main.ts'],
+    external: [
+        ...builtins,
+        "electron",
+        "obsidian"
+    ],
+    logLevel: "info",
     plugins: [
         copy({
             assets: [

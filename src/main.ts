@@ -13,15 +13,19 @@ const DEFAULT_SETTINGS: Settings = {
 
 export default class MyPlugin extends Plugin {
     settings: Settings;
+    view: ExampleView | null;
 
     constructor(app: App, manifest: PluginManifest) {
         super(app, manifest);
         this.settings = DEFAULT_SETTINGS;
+        this.view = null;
     }
 
     override async onload() {
         console.log('!!!! onload() !!!!');
         await this.loadSettings();
+
+        this.registerView('svelte-view', (leaf: WorkspaceLeaf) => { return this.view = new ExampleView(leaf) });
 
         // This creates an icon in the left ribbon.
         const ribbonIconEl = this.addRibbonIcon('dice', 'Sample Plugin', (_evt: MouseEvent) => {
