@@ -1,5 +1,5 @@
 interface Line {
-    value: number,
+  value: number;
 }
 
 export default Line;
