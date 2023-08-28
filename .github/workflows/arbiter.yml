@@ -16,7 +16,7 @@ jobs:
       - name: Install dependencies
         run: npm install --dev
       - name: Lint script
-        run: npm run lint
+        run: npm run lint:check
   build:
     name: Build
     runs-on: ubuntu-latest
