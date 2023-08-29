@@ -12,9 +12,7 @@ import {
   Setting,
   type PluginManifest,
 } from "obsidian";
-import Component from "./component.svelte";
-
-// Remember to rename these classes and interfaces!
+import Component from "./list.svelte";
 
 interface Settings {
   setting: string;
@@ -24,7 +22,7 @@ const DEFAULT_SETTINGS: Settings = {
   setting: "default",
 };
 
-export default class MyPlugin extends Plugin {
+export default class Arbiter extends Plugin {
   settings: Settings;
   view: ExampleView | null;
 
@@ -60,12 +58,13 @@ export default class MyPlugin extends Plugin {
 
     // This adds a simple command that can be triggered anywhere
     this.addCommand({
-      id: "open-sample-modal-simple",
-      name: "Open sample modal (simple)",
+      id: "open_task_list",
+      name: "Open task list",
       callback: () => {
         new SampleModal(this.app).open();
       },
     });
+
     // This adds an editor command that can perform some operation on the current editor instance
     this.addCommand({
       id: "sample-editor-command",
@@ -143,9 +142,9 @@ class SampleModal extends Modal {
 }
 
 class SampleSettingTab extends PluginSettingTab {
-  plugin: MyPlugin;
+  plugin: Arbiter;
 
-  constructor(app: App, plugin: MyPlugin) {
+  constructor(app: App, plugin: Arbiter) {
     super(app, plugin);
     this.plugin = plugin;
   }
