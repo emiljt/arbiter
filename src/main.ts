@@ -40,17 +40,10 @@ export default class Arbiter extends Plugin {
       return (this.view = new ExampleView(leaf));
     });
 
-    // This creates an icon in the left ribbon.
-    const ribbonIconEl = this.addRibbonIcon(
-      "dice",
-      "Sample Plugin",
-      (_evt: MouseEvent) => {
-        // Called when the user clicks the icon.
-        new Notice("This is a notice!");
-      },
-    );
-    // Perform additional things with the ribbon
-    ribbonIconEl.addClass("my-plugin-ribbon-class");
+    // Create icon in the left ribbon
+    this.addRibbonIcon("list-checks", "Task List", (_evt: MouseEvent) => {
+      new Notice("Task list");
+    });
 
     // This adds a status bar item to the bottom of the app. Does not work on mobile apps.
     const statusBarItemEl = this.addStatusBarItem();
