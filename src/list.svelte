@@ -9,7 +9,7 @@
 </script>
 
 <div class="number">
-  <span>My number is {totalTasks}!</span>
+  <span>Total Tasks: {totalTasks}</span>
 </div>
 
 <style>

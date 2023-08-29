@@ -1,5 +1,5 @@
 interface Original {
-    value: string,
+  value: string;
 }
 
 export default Original;

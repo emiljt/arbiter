@@ -1,5 +1,5 @@
 interface Id {
-    value: string,
+  value: string;
 }
 
 export default Id;

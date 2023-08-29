@@ -1,5 +1,5 @@
 interface Path {
-    value: string,
+  value: string;
 }
 
 export default Path;
