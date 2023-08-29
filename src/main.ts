@@ -41,13 +41,9 @@ export default class Arbiter extends Plugin {
     });
 
     // Create icon in the left ribbon
-    this.addRibbonIcon(
-      "list-checks",
-      "Task List",
-      (_evt: MouseEvent) => {
-        new Notice("Task list");
-      },
-    );
+    this.addRibbonIcon("list-checks", "Task List", (_evt: MouseEvent) => {
+      new Notice("Task list");
+    });
 
     // This adds a status bar item to the bottom of the app. Does not work on mobile apps.
     const statusBarItemEl = this.addStatusBarItem();
