@@ -9,7 +9,7 @@
     "build:tsc": "npx tsc",
     "lint": "npx prettier --write ./src",
     "lint:check": "npx prettier --check ./src",
-    "sync": "npm run sync:reload && npm run sync:rsync",
+    "sync": "npm run build && npm run sync:reload && npm run sync:rsync",
     "sync:reload": "touch $OBSIDIAN_TEST_PLUGIN/.hotreload",
     "sync:rsync": "rsync -rv --delete --exclude=.hotreload ./dist/ $OBSIDIAN_TEST_PLUGIN",
     "test": "echo \"Warning: No tests specified\" && exit 0"
