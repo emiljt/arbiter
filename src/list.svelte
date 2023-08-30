@@ -1,4 +1,5 @@
 <script lang="ts">
+  console.log("!!!! list.svelte !!!!");
   import { tasks } from './store.js';
 
   let totalTasks: number;
