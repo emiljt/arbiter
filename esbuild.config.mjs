@@ -6,7 +6,7 @@ import sveltePreprocess from './svelte.config.js';
 
 await esbuild.build({
     platform: 'browser',
-    format: 'esm',
+    format: 'cjs',
     target: 'es6',
     bundle: true,
     treeShaking: true,
