@@ -2,4 +2,4 @@ interface Path {
   value: string;
 }
 
-export default Path;
+export type { Path };

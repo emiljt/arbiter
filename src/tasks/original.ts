@@ -2,4 +2,4 @@ interface Original {
   value: string;
 }
 
-export default Original;
+export type { Original };

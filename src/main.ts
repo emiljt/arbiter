@@ -5,7 +5,7 @@ import {
   Plugin,
   type PluginManifest,
 } from "obsidian";
-import TaskListComponent from "./list.svelte";
+import TaskListComponent from "./List.svelte";
 
 export default class Arbiter extends Plugin {
   view: TaskListView | null;

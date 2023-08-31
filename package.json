@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "description": "A productivity plugin for Obsidian.md",
   "main": "main.js",
+  "type": "module",
   "scripts": {
     "build": "npm run build:tsc && npm run build:esbuild",
     "build:esbuild": "node esbuild.config.mjs",
@@ -35,6 +36,7 @@
     "esbuild": "^0.18.17",
     "esbuild-plugin-copy": "^2.1.1",
     "esbuild-svelte": "^0.7.4",
+    "lucide-svelte": "^0.271.0",
     "prettier": "^3.0.0",
     "svelte-preprocess": "^5.0.4",
     "typescript": "^5.1.6"

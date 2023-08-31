@@ -1,12 +1,12 @@
 import builtins from "builtin-modules";
 import esbuild from 'esbuild';
 import esbuildSvelte from 'esbuild-svelte';
-import sveltePreprocess from 'svelte-preprocess';
 import { copy } from 'esbuild-plugin-copy';
+import sveltePreprocess from './svelte.config.js';
 
 await esbuild.build({
     platform: 'browser',
-    format: 'cjs',
+    format: 'esm',
     target: 'es6',
     bundle: true,
     treeShaking: true,
@@ -31,8 +31,8 @@ await esbuild.build({
             dryRun: false,
         }),
         esbuildSvelte({
-            compilerOptions: { css: true },
-            preprocess: sveltePreprocess(),
+            compilerOptions: { css: 'injected' },
+            preprocess: sveltePreprocess.preprocess,
         }),
     ],
 });
