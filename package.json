@@ -5,8 +5,9 @@
   "main": "main.js",
   "type": "module",
   "scripts": {
-    "build": "npm run build:tsc && npm run build:esbuild",
+    "build": "npm run build:tsc && npm run build:svelte && npm run build:esbuild",
     "build:esbuild": "node esbuild.config.mjs",
+    "build:svelte": "npx svelte-check",
     "build:tsc": "npx tsc",
     "lint": "npx prettier --write ./src",
     "lint:check": "npx prettier --check ./src",
@@ -38,6 +39,7 @@
     "esbuild-svelte": "^0.7.4",
     "lucide-svelte": "^0.271.0",
     "prettier": "^3.0.0",
+    "svelte-check": "^3.5.1",
     "svelte-preprocess": "^5.0.4",
     "typescript": "^5.1.6"
   }

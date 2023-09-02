@@ -1,3 +1,3 @@
-import { writable } from "svelte/store";
+import { writable, type Writable } from "svelte/store";
 
-export const tasks = writable([]);
+export const tasks: Writable<Array<string>> = writable([]);
