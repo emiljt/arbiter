@@ -1,8 +1,8 @@
 import builtins from "builtin-modules";
 import esbuild from 'esbuild';
 import esbuildSvelte from 'esbuild-svelte';
-import sveltePreprocess from 'svelte-preprocess';
 import { copy } from 'esbuild-plugin-copy';
+import sveltePreprocess from './svelte.config.js';
 
 await esbuild.build({
     platform: 'browser',
@@ -31,8 +31,8 @@ await esbuild.build({
             dryRun: false,
         }),
         esbuildSvelte({
-            compilerOptions: { css: true },
-            preprocess: sveltePreprocess(),
+            compilerOptions: { css: 'external' },
+            preprocess: sveltePreprocess.preprocess,
         }),
     ],
 });

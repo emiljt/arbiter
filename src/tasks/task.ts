@@ -1,6 +1,6 @@
-import Id from "./id.js";
-import Original from "./original.js";
-import Source from "./source.js";
+import type { Id } from "./id.js";
+import type { Original } from "./original.js";
+import type { Source } from "./source.js";
 
 interface Task {
   id: Id;
@@ -8,4 +8,4 @@ interface Task {
   original: Original;
 }
 
-export default Task;
+export type { Task };
