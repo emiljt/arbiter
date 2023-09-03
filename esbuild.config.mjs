@@ -31,7 +31,7 @@ await esbuild.build({
             dryRun: false,
         }),
         esbuildSvelte({
-            compilerOptions: { css: 'injected' },
+            compilerOptions: { css: 'external' },
             preprocess: sveltePreprocess.preprocess,
         }),
     ],
