@@ -1,6 +1,5 @@
 <script lang="ts">
   import { tasks } from './store.js';
-  import Task from './Task.svelte';
 
   let currentTasks: string[];
 
