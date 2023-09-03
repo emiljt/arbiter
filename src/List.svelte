@@ -14,7 +14,7 @@
 
   <ul>
     {#each currentTasks as task}
-      <li><input type="checkbox" /><span>{task}</span></li>
+      <li><input type="checkbox" disabled /><span>{task}</span></li>
     {/each}
   </ul>
 </div>
