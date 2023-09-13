@@ -5,7 +5,7 @@ import {
   Plugin,
   type PluginManifest,
 } from "obsidian";
-import TextFileService from './text_file_service.js';
+import TextFileService from "./text_file_service.js";
 import TaskListComponent from "./List.svelte";
 
 export default class Arbiter extends Plugin {
