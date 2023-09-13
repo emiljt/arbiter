@@ -5,6 +5,7 @@ import {
   Plugin,
   type PluginManifest,
 } from "obsidian";
+import TextFileService from "./text_file_service.js";
 import TaskListComponent from "./List.svelte";
 
 export default class Arbiter extends Plugin {
@@ -31,6 +32,10 @@ export default class Arbiter extends Plugin {
         this.activateView();
       },
     });
+
+    const textFileService = new TextFileService(this.app.vault);
+
+    console.log(await textFileService.searchAllFiles(/^\- *\[ *\].*$/gm));
   }
 
   override onunload() {}
