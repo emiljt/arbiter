@@ -36,20 +36,28 @@ export default class Arbiter extends Plugin {
     });
 
     // Markdown tasks
-    console.log(await this.textFileService.searchAllFiles(/^[ \t]*\- ?\[[ |x]?\][ \t].*$/gmi));
+    console.log(
+      await this.textFileService.searchAllFiles(
+        /^[ \t]*\- ?\[[ |x]?\][ \t].*$/gim,
+      ),
+    );
     // Bracket tasks
-    console.log(await this.textFileService.searchAllFiles(/^[ \t]*\[[ |x]?\][ \t].*$/gmi));
+    console.log(
+      await this.textFileService.searchAllFiles(/^[ \t]*\[[ |x]?\][ \t].*$/gim),
+    );
     // Numerated tasks
     console.log(
-      await this.textFileService.searchAllFiles(/^[ \t]*[0-9]+\.[ \t]?\[[ |x]?\][ \t].*$/gmi),
+      await this.textFileService.searchAllFiles(
+        /^[ \t]*[0-9]+\.[ \t]?\[[ |x]?\][ \t].*$/gim,
+      ),
     );
     // TODO tasks
     console.log(
-      await this.textFileService.searchAllFiles(/^[ \t]*todo:?[ \t].*$/gmi),
+      await this.textFileService.searchAllFiles(/^[ \t]*todo:?[ \t].*$/gim),
     );
     // TASK tasks
     console.log(
-      await this.textFileService.searchAllFiles(/^[ \t]*task:?[ \t].*$/gmi),
+      await this.textFileService.searchAllFiles(/^[ \t]*task:?[ \t].*$/gim),
     );
   }
 
