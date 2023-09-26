@@ -10,10 +10,12 @@ import TaskListComponent from "./List.svelte";
 
 export default class Arbiter extends Plugin {
   view: TaskListView | null;
+  textFileService: TextFileService;
 
   constructor(app: App, manifest: PluginManifest) {
     super(app, manifest);
     this.view = null;
+    this.textFileService = new TextFileService(this.app.vault);
   }
 
   override async onload() {
@@ -33,9 +35,30 @@ export default class Arbiter extends Plugin {
       },
     });
 
-    const textFileService = new TextFileService(this.app.vault);
-
-    console.log(await textFileService.searchAllFiles(/^\- *\[ *\].*$/gm));
+    // Markdown tasks
+    console.log(
+      await this.textFileService.searchAllFiles(
+        /^[ \t]*\- ?\[[ |x]?\][ \t].*$/gim,
+      ),
+    );
+    // Bracket tasks
+    console.log(
+      await this.textFileService.searchAllFiles(/^[ \t]*\[[ |x]?\][ \t].*$/gim),
+    );
+    // Numerated tasks
+    console.log(
+      await this.textFileService.searchAllFiles(
+        /^[ \t]*[0-9]+\.[ \t]?\[[ |x]?\][ \t].*$/gim,
+      ),
+    );
+    // TODO tasks
+    console.log(
+      await this.textFileService.searchAllFiles(/^[ \t]*todo:?[ \t].*$/gim),
+    );
+    // TASK tasks
+    console.log(
+      await this.textFileService.searchAllFiles(/^[ \t]*task:?[ \t].*$/gim),
+    );
   }
 
   override onunload() {}
