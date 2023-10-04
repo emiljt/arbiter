@@ -12,44 +12,44 @@ const TASK_TAG_REGEX = /^[ \t]*task:?[ \t].*$/;
 const TODO_TAG_REGEX = /^[ \t]*todo:?[ \t].*$/;
 
 export default class TasksApplication {
-    subscribers: { (task: string): void }[] = [];
+  subscribers: { (task: string): void }[] = [];
 
-    constructor() {}
+  constructor() {}
 
-    registerSubscriber(sub: { (task: string): void }): void {
-        console.log('Registering subscriber...');
-        this.subscribers.push(sub);
-        console.log(`Subscriber count: ${this.subscribers.length}`);
+  registerSubscriber(sub: { (task: string): void }): void {
+    console.log("Registering subscriber...");
+    this.subscribers.push(sub);
+    console.log(`Subscriber count: ${this.subscribers.length}`);
+  }
+
+  private createTask(task: string) {
+    // TODO
+    // Create tasks using domain
+
+    // Notify subscribers
+    this.publish(task);
+  }
+
+  private publish(task: string): void {
+    console.log(`Subscriber count: ${this.subscribers.length}`);
+    for (const sub of this.subscribers) {
+      sub(task);
+    }
+  }
+
+  async sync(text_file_service: TextFileService): Promise<string[]> {
+    const tasks: string[] = await text_file_service.searchAllFiles([
+      BRACKET_REGEX,
+      MARKDOWN_REGEX,
+      NUMERATED_REGEX,
+      TASK_TAG_REGEX,
+      TODO_TAG_REGEX,
+    ]);
+
+    for (const task of tasks) {
+      this.createTask(task);
     }
 
-    private createTask(task: string) {
-        // TODO
-        // Create tasks using domain
-
-        // Notify subscribers
-        this.publish(task);
-    }
-
-    private publish(task: string): void {
-        console.log(`Subscriber count: ${this.subscribers.length}`);
-        for(const sub of this.subscribers) {
-            sub(task);
-        }
-    }
-
-    async sync(text_file_service: TextFileService): Promise<string[]> {
-        const tasks: string[] = await text_file_service.searchAllFiles([
-            BRACKET_REGEX,
-            MARKDOWN_REGEX,
-            NUMERATED_REGEX,
-            TASK_TAG_REGEX,
-            TODO_TAG_REGEX,
-        ]);
-
-        for(const task of tasks) {
-            this.createTask(task);
-        }
-
-        return tasks;
-    }
+    return tasks;
+  }
 }
