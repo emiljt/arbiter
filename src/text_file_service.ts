@@ -7,20 +7,35 @@ export default class TextFileService {
     this.#vault = vault;
   }
 
-  async searchAllFiles(regex: RegExp): Promise<string[] | null> {
+  async searchAllFiles(expressions: RegExp[]): Promise<string[]> {
     let results: string[] = [];
 
     for (const file of this.#vault.getFiles()) {
-      results = results.concat(await this.searchFile(file, regex));
+      results = results.concat(await this.searchFile(file, expressions));
     }
 
     return results;
   }
 
-  private async searchFile(file: TFile, regex: RegExp): Promise<string[]> {
+  private async searchFile(
+    file: TFile,
+    expressions: RegExp[],
+  ): Promise<string[]> {
+    console.log(`Searching file: ${file.basename}`);
+
     const content: string = await this.#vault.cachedRead(file);
+    const optimizedExpressions: string[] = [];
+
+    for (let expression of expressions) {
+      optimizedExpressions.push(
+        expression.toString().replace(/^\/\^/, "").replace(/\$\/$/, ""),
+      );
+    }
+
+    const regex = new RegExp(`^${optimizedExpressions.join("|")}$`, "gmi");
     const matches: RegExpMatchArray | [] = content.match(regex) || [];
 
+    console.log(`Found ${matches.length} matches for ${regex}`);
     return matches;
   }
 }
