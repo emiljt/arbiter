@@ -5,26 +5,36 @@ import {
   Plugin,
   type PluginManifest,
 } from "obsidian";
+import { Logger, LogLevel } from "./logging_service.js";
 import TextFileService from "./text_file_service.js";
 import TaskListComponent from "./List.svelte";
 import TasksApplication from "./tasks_application.js";
 import { tasks } from "./store.js";
 
 export default class Arbiter extends Plugin {
-  view: TaskListView | null;
-  textFileService: TextFileService;
+  #logger: Logger;
   tasksApplication: TasksApplication;
+  textFileService: TextFileService;
+  view: TaskListView | null;
 
   constructor(app: App, manifest: PluginManifest) {
     super(app, manifest);
+    this.#logger = new Logger(
+      "arbiter",
+      process.env["NODE_ENV"] === "development"
+        ? LogLevel.DEBUG
+        : LogLevel.INFO,
+    );
+    this.textFileService = new TextFileService(this.#logger, this.app.vault);
+    this.tasksApplication = new TasksApplication(this.#logger);
     this.view = null;
-    this.textFileService = new TextFileService(this.app.vault);
-    this.tasksApplication = new TasksApplication();
   }
 
   override async onload() {
+    this.#logger.debug("onload()");
+
     this.registerView(TASK_LIST_VIEW, (leaf: WorkspaceLeaf) => {
-      return (this.view = new TaskListView(leaf));
+      return (this.view = new TaskListView(this.#logger, leaf));
     });
 
     this.addRibbonIcon("list-checks", "Task List", (_evt: MouseEvent) => {
@@ -46,9 +56,13 @@ export default class Arbiter extends Plugin {
     this.tasksApplication.sync(this.textFileService);
   }
 
-  override onunload() {}
+  override onunload() {
+    this.#logger.debug("onunload()");
+  }
 
   async activateView() {
+    this.#logger.debug("activateView()");
+
     const views = this.app.workspace.getLeavesOfType(TASK_LIST_VIEW);
 
     if (views.length) {
@@ -65,10 +79,12 @@ export default class Arbiter extends Plugin {
 export const TASK_LIST_VIEW = "task_list_view";
 
 export class TaskListView extends ItemView {
+  #logger: Logger;
   component: TaskListComponent;
 
-  constructor(leaf: WorkspaceLeaf) {
+  constructor(logger: Logger, leaf: WorkspaceLeaf) {
     super(leaf);
+    this.#logger = logger;
     this.component = new TaskListComponent({
       target: this.contentEl,
       props: {},
@@ -76,16 +92,23 @@ export class TaskListView extends ItemView {
   }
 
   getViewType() {
+    this.#logger.debug("getViewType()");
+
     return TASK_LIST_VIEW;
   }
 
   getDisplayText() {
+    this.#logger.debug("getDisplayText()");
+
     return "Task List";
   }
 
-  override async onOpen() {}
+  override async onOpen() {
+    this.#logger.debug("onOpen()");
+  }
 
   override async onClose() {
+    this.#logger.debug("onClose()");
     this.component.$destroy();
   }
 }
