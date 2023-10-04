@@ -7,15 +7,19 @@ import {
 } from "obsidian";
 import TextFileService from "./text_file_service.js";
 import TaskListComponent from "./List.svelte";
+import TasksApplication from "./tasks_application.js";
+import { tasks } from "./store.js";
 
 export default class Arbiter extends Plugin {
   view: TaskListView | null;
   textFileService: TextFileService;
+  tasksApplication: TasksApplication;
 
   constructor(app: App, manifest: PluginManifest) {
     super(app, manifest);
     this.view = null;
     this.textFileService = new TextFileService(this.app.vault);
+    this.tasksApplication = new TasksApplication();
   }
 
   override async onload() {
@@ -35,30 +39,11 @@ export default class Arbiter extends Plugin {
       },
     });
 
-    // Markdown tasks
-    console.log(
-      await this.textFileService.searchAllFiles(
-        /^[ \t]*\- ?\[[ |x]?\][ \t].*$/gim,
-      ),
-    );
-    // Bracket tasks
-    console.log(
-      await this.textFileService.searchAllFiles(/^[ \t]*\[[ |x]?\][ \t].*$/gim),
-    );
-    // Numerated tasks
-    console.log(
-      await this.textFileService.searchAllFiles(
-        /^[ \t]*[0-9]+\.[ \t]?\[[ |x]?\][ \t].*$/gim,
-      ),
-    );
-    // TODO tasks
-    console.log(
-      await this.textFileService.searchAllFiles(/^[ \t]*todo:?[ \t].*$/gim),
-    );
-    // TASK tasks
-    console.log(
-      await this.textFileService.searchAllFiles(/^[ \t]*task:?[ \t].*$/gim),
-    );
+    this.tasksApplication.registerSubscriber((task: string) => {
+      tasks.update((t) => [...t, task]);
+    });
+
+    this.tasksApplication.sync(this.textFileService);
   }
 
   override onunload() {}
