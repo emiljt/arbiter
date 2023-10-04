@@ -1,10 +1,10 @@
 import Pino from "pino";
 
 export enum LogLevel {
-  DEBUG = 'DEBUG',
-  ERROR = 'ERROR',
-  INFO = 'INFO',
-  WARN = 'WARN',
+  DEBUG = "DEBUG",
+  ERROR = "ERROR",
+  INFO = "INFO",
+  WARN = "WARN",
 }
 
 export class Logger {
