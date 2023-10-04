@@ -1,3 +1,4 @@
+import type { Logger } from "./logging_service.js";
 import type TextFileService from "./text_file_service.js";
 
 // Bracket task regex (e.g. [ ] Task)
@@ -12,17 +13,21 @@ const TASK_TAG_REGEX = /^[ \t]*task:?[ \t].*$/;
 const TODO_TAG_REGEX = /^[ \t]*todo:?[ \t].*$/;
 
 export default class TasksApplication {
+  #logger: Logger;
   subscribers: { (task: string): void }[] = [];
 
-  constructor() {}
+  constructor(logger: Logger) {
+    this.#logger = logger;
+  }
 
   registerSubscriber(sub: { (task: string): void }): void {
-    console.log("Registering subscriber...");
+    this.#logger.debug("registerSubscriber()");
     this.subscribers.push(sub);
-    console.log(`Subscriber count: ${this.subscribers.length}`);
   }
 
   private createTask(task: string) {
+    this.#logger.debug(`createTask()`);
+
     // TODO
     // Create tasks using domain
 
@@ -31,13 +36,16 @@ export default class TasksApplication {
   }
 
   private publish(task: string): void {
-    console.log(`Subscriber count: ${this.subscribers.length}`);
+    this.#logger.debug(`publish()`);
+
     for (const sub of this.subscribers) {
       sub(task);
     }
   }
 
   async sync(text_file_service: TextFileService): Promise<string[]> {
+    this.#logger.debug(`sync()`);
+
     const tasks: string[] = await text_file_service.searchAllFiles([
       BRACKET_REGEX,
       MARKDOWN_REGEX,
