@@ -11,7 +11,7 @@ await esbuild.build({
     bundle: true,
     treeShaking: true,
     minify: true,
-    sourcemap: true,
+    sourcemap: process.env['NODE_ENV'] === 'development' ? 'inline' : false,
     outdir: './dist',
     entryPoints: ['./src/main.ts'],
     external: [

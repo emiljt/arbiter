@@ -1,5 +1,14 @@
 import Pino from "pino";
 
+export function getDefaultLogger(): Logger {
+  return new Logger(
+    "arbiter",
+    process.env["NODE_ENV"] === "development"
+      ? LogLevel.DEBUG
+      : LogLevel.INFO,
+  );
+}
+
 export enum LogLevel {
   DEBUG = "DEBUG",
   ERROR = "ERROR",

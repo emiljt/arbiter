@@ -21,28 +21,28 @@
 
 <style>
   li {
-    margin-bottom: var(--size-4-2);
-    padding-top: var(--size-4-2);
-    padding-left: var(--size-4-2);
+    margin-bottom: var(--arbiter-px-grid-4x2);
+    padding-top: var(--arbiter-px-grid-4x2);
+    padding-left: var(--arbiter-px-grid-4x2);
     list-style: none;
   }
 
   li:hover {
-    background-color: var(--background-secondary);
+    background-color: var(--arbiter-bg-2);
   }
 
   span {
     display: inline-block;
-    width: calc(100% - var(--size-4-12));
-    padding-bottom: var(--size-4-3);
+    width: calc(100% - var(--arbiter-px-grid-4x12));
+    padding-bottom: var(--arbiter-px-grid-4x3);
     border-bottom-style: solid;
-    border-bottom-width: var(--border-width);
-    border-bottom-color: var(--background-secondary);
+    border-bottom-width: var(--arbiter-border-width);
+    border-bottom-color: var(--arbiter-bg-2);
   }
 
-  input[type=checkbox] {
+  /* input[type=checkbox] {
     position: relative;
     top: 0.2em;
     margin-right: 0.6em;
-  }
+  } */
 </style>

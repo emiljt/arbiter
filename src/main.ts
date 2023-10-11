@@ -5,7 +5,7 @@ import {
   Plugin,
   type PluginManifest,
 } from "obsidian";
-import { Logger, LogLevel } from "./logging_service.js";
+import { getDefaultLogger, type Logger } from "./logging_service.js";
 import TextFileService from "./text_file_service.js";
 import TaskListComponent from "./List.svelte";
 import TasksApplication from "./tasks_application.js";
@@ -19,12 +19,7 @@ export default class Arbiter extends Plugin {
 
   constructor(app: App, manifest: PluginManifest) {
     super(app, manifest);
-    this.#logger = new Logger(
-      "arbiter",
-      process.env["NODE_ENV"] === "development"
-        ? LogLevel.DEBUG
-        : LogLevel.INFO,
-    );
+    this.#logger = getDefaultLogger();
     this.textFileService = new TextFileService(this.#logger, this.app.vault);
     this.tasksApplication = new TasksApplication(this.#logger);
     this.view = null;
@@ -34,7 +29,7 @@ export default class Arbiter extends Plugin {
     this.#logger.debug("onload()");
 
     this.registerView(TASK_LIST_VIEW, (leaf: WorkspaceLeaf) => {
-      return (this.view = new TaskListView(this.#logger, leaf));
+      return (this.view = new TaskListView(leaf));
     });
 
     this.addRibbonIcon("list-checks", "Task List", (_evt: MouseEvent) => {
@@ -82,9 +77,9 @@ export class TaskListView extends ItemView {
   #logger: Logger;
   component: TaskListComponent;
 
-  constructor(logger: Logger, leaf: WorkspaceLeaf) {
+  constructor(leaf: WorkspaceLeaf) {
     super(leaf);
-    this.#logger = logger;
+    this.#logger = getDefaultLogger();
     this.component = new TaskListComponent({
       target: this.contentEl,
       props: {},
@@ -92,13 +87,15 @@ export class TaskListView extends ItemView {
   }
 
   getViewType() {
-    this.#logger.debug("getViewType()");
+    // Can't use logger here because it hasn't been initialized yet
+    // this.#logger.debug("getViewType()");
 
     return TASK_LIST_VIEW;
   }
 
   getDisplayText() {
-    this.#logger.debug("getDisplayText()");
+    // Can't use logger here because it hasn't been initialized yet
+    // this.#logger.debug("getDisplayText()");
 
     return "Task List";
   }
